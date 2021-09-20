@@ -105,6 +105,10 @@ func TestQemuArm64AppendImage(t *testing.T) {
 	imageStat, err := f.Stat()
 	assert.NoError(err)
 
+	// Save default supportedQemuMachines options
+	machinesCopy := make([]govmmQemu.Machine, len(supportedQemuMachines))
+	assert.Equal(len(supportedQemuMachines), copy(machinesCopy, supportedQemuMachines))
+
 	cfg := qemuConfig(QemuVirt)
 	cfg.ImagePath = f.Name()
 	arm64, err := newQemuArch(cfg)
